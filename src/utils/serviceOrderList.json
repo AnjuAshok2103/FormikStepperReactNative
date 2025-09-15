@@ -1,0 +1,321 @@
+[
+  {
+    "premise": "5201436780",
+    "accountId": "910001436780",
+    "customerId": "1101620710",
+    "installationType": "WATER",
+    "type": "DNPFM",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "A-26, Acharya Vinoba Bhave Nagar",
+      "street2": "B Block, Vaishali Nagar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302021",
+      "latitude": 26.91025,
+      "longitude": 75.73652,
+      "formattedAddress": "A-26, Acharya Vinoba Bhave Nagar B Block, Vaishali Nagar, Jaipur, Rajasthan 302021",
+      "abbreviatedStreet": "A-26, Acharya Vinoba Bhave Nagar B Block, Vaishali..."
+    },
+    "description": "DNP Reconnect",
+    "appointmentWindow": "02:00PM-04:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201521191",
+    "accountId": "910002607241",
+    "customerId": "1100669396",
+    "installationType": "ELECTRIC",
+    "type": "SIO019",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "22, Jayanti Market, New Colony",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302001",
+      "latitude": 26.91769,
+      "longitude": 75.80703,
+      "formattedAddress": "22, Jayanti Market, New Colony, Jaipur, Rajasthan 302001",
+      "abbreviatedStreet": "22, Jayanti Market, New Colony"
+    },
+    "description": "Install Part",
+    "appointmentWindow": "12:00PM-04:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201793499",
+    "accountId": "910008332421",
+    "customerId": "1104497847",
+    "installationType": "WATER",
+    "type": "TC 006",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "322, Chaura Rasta Rd, Pink City",
+      "street2": "Bapu Bazaar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302003",
+      "latitude": 26.91971,
+      "longitude": 75.82174,
+      "formattedAddress": "322, Chaura Rasta Rd, Pink City Bapu Bazaar, Jaipur, Rajasthan 302003",
+      "abbreviatedStreet": "322, Chaura Rasta Rd, Pink City Bapu Bazaar"
+    },
+    "description": "Tenat Change Meter Set On",
+    "appointmentWindow": "06:00PM-08:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201699851",
+    "accountId": "910002667006",
+    "customerId": "1102407474",
+    "installationType": "GAS",
+    "type": "SIO019",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "845, Nemi Nagar",
+      "street2": "Vaishali Nagar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302021",
+      "latitude": 26.91098,
+      "longitude": 75.74466,
+      "formattedAddress": "845, Nemi Nagar Vaishali Nagar, Jaipur, Rajasthan 302021",
+      "abbreviatedStreet": "845, Nemi Nagar Vaishali Nagar"
+    },
+    "description": "Install Part",
+    "appointmentWindow": "04:00PM-08:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201652565",
+    "accountId": "910003351322",
+    "customerId": "1102908795",
+    "installationType": "ELECTRIC",
+    "type": "SIO013",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "144, Bapu Bazaar, Biseswarji",
+      "street2": "Bapu Bazaar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302003",
+      "latitude": 26.91676,
+      "longitude": 75.82288,
+      "formattedAddress": "144, Bapu Bazaar, Biseswarji Bapu Bazaar, Jaipur, Rajasthan 302003",
+      "abbreviatedStreet": "144, Bapu Bazaar, Biseswarji Bapu Bazaar"
+    },
+    "description": "Miscellaneous On",
+    "appointmentWindow": "06:00PM-08:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201730205",
+    "accountId": "910001730205",
+    "customerId": "1102369347",
+    "installationType": "GAS",
+    "type": "TC 08P",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "147, Amrapali Marg",
+      "street2": "Vaishali Nagar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302021",
+      "latitude": 26.91129,
+      "longitude": 75.74872,
+      "formattedAddress": "147, Amrapali Marg Vaishali Nagar, Jaipur, Rajasthan 302021",
+      "abbreviatedStreet": "147, Amrapali Marg Vaishali Nagar"
+    },
+    "description": "2lb Tenant Change On",
+    "appointmentWindow": "04:00PM-06:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201793729",
+    "accountId": "910006754467",
+    "customerId": "1103945549",
+    "installationType": "GAS",
+    "type": "SIO004",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "576, Adarsh Nagar Rd, Anand Puri, Bis Dukan",
+      "street2": "Adarsh Nagar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302004",
+      "latitude": 26.90253,
+      "longitude": 75.82461,
+      "formattedAddress": "576, Adarsh Nagar Rd, Anand Puri, Bis Dukan Adarsh Nagar, Jaipur, Rajasthan 302004",
+      "abbreviatedStreet": "576, Adarsh Nagar Rd, Anand Puri, Bis Dukan Adarsh..."
+    },
+    "description": "Service Appliance",
+    "appointmentWindow": "07:30AM-09:30AM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201856401",
+    "accountId": "910002719318",
+    "customerId": "1101441414",
+    "installationType": "GAS",
+    "type": "TC 006",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "90/16, Karma Patel Marg, Madhyam Marga",
+      "street2": "near Aero Club Woodland,showroom, Mansarovar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302020",
+      "latitude": 26.85217,
+      "longitude": 75.76768,
+      "formattedAddress": "90/16, Karma Patel Marg, Madhyam Marga near Aero Club Woodland,showroom, Mansarovar, Jaipur, Rajasthan 302020",
+      "abbreviatedStreet": "90/16, Karma Patel Marg, Madhyam Marga near Aero C..."
+    },
+    "description": "Tenat Change Meter Set On",
+    "appointmentWindow": "07:30AM-09:30AM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201692918",
+    "accountId": "910003364819",
+    "customerId": "1102679551",
+    "installationType": "ELECTRIC",
+    "type": "MC 020",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "113, Gurunanakpura",
+      "street2": "Tilak Nagar",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302004",
+      "latitude": 26.89491,
+      "longitude": 75.82474,
+      "formattedAddress": "113, Gurunanakpura Tilak Nagar, Jaipur, Rajasthan 302004",
+      "abbreviatedStreet": "113, Gurunanakpura Tilak Nagar"
+    },
+    "description": "Change Meter Size",
+    "appointmentWindow": "08:00AM-08:00PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  },
+  {
+    "premise": "5201362711",
+    "accountId": "910008408599",
+    "customerId": "1104517661",
+    "installationType": "WATER",
+    "type": "TC 006",
+    "status": "SCHEDULED",
+    "tech": {
+      "id": "AXA1",
+      "name": "ANJU"
+    },
+    "notification": {
+      "customerName": "JANE DOE",
+      "email": "jane-doe@localhost.localdomain",
+      "ivrNumber": "7022345678",
+      "smsNumber": "7022345678"
+    },
+    "serviceAddress": {
+      "street1": "H1/823, Ricco Industrial Area",
+      "street2": "Sitapura",
+      "city": "Jaipur",
+      "state": "Rajasthan",
+      "zip": "302022",
+      "latitude": 26.77553,
+      "longitude": 75.84993,
+      "formattedAddress": "H1/823, Ricco Industrial Area Sitapura, Jaipur, Rajasthan 302022",
+      "abbreviatedStreet": "H1/823, Ricco Industrial Area Sitapura"
+    },
+    "description": "Tenat Change Meter Set On",
+    "appointmentWindow": "11:30AM-01:30PM",
+    "timestamp": "2025-09-11T12:08:17Z"
+  }
+]
