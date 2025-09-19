@@ -63,4 +63,15 @@ export const formDefinitionSimple: StepDefinition[] = [
       },
     ],
   },
+  {
+    title: 'Confirmation',
+    fields: [
+      {
+        name: 'review',
+        label: 'review',
+        type: 'review',
+        inputType: 'review',
+      },
+    ],
+  },
 ];

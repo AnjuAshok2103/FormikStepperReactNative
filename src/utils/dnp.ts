@@ -36,7 +36,7 @@ export const dnp: StepDefinition[] = [
           {
             name: 'clockTestInMinutes',
             label: 'CFH In Minutes',
-            inputType: 'text-input',
+            inputType: 'number-input',
             type: 'number',
             max: 2,
             typeNumberSubtype: 'minutes',
@@ -51,7 +51,7 @@ export const dnp: StepDefinition[] = [
           {
             name: 'dropTestInMinutes',
             label: 'Drop Test In Minutes',
-            inputType: 'text-input',
+            inputType: 'number-input',
             type: 'number',
             typeNumberSubtype: 'minutes',
             max: 2,
@@ -149,7 +149,7 @@ export const dnp: StepDefinition[] = [
           'Select the issue you have observed with the service. This will help us understand the problem and take appropriate action.',
         fields: [
           {
-            name: 'commentsSelected',
+            name: 'selectedComment',
             label: 'Selected Comments',
             inputType: 'multi-select',
             type: 'text',
@@ -210,6 +210,17 @@ export const dnp: StepDefinition[] = [
             ],
           },
         ],
+      },
+    ],
+  },
+  {
+    title: 'Confirmation',
+    fields: [
+      {
+        name: 'review',
+        label: 'review',
+        type: 'review',
+        inputType: 'review',
       },
     ],
   },

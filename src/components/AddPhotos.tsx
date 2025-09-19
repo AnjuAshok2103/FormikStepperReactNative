@@ -1,6 +1,6 @@
 import Icon from '@react-native-vector-icons/material-design-icons';
 import { getIn, useFormikContext } from 'formik';
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Alert,
   Image,
@@ -17,6 +17,8 @@ import {
   MediaType,
 } from 'react-native-image-picker';
 import { Button } from 'react-native-paper';
+import { useAppTheme } from '../hooks/useAppTheme';
+import { CustomThemeContext } from '../context/CustomThemeContext';
 
 interface Props {
   name: string;
@@ -29,7 +31,8 @@ const PHOTO_LIMIT = 10;
 const AddPhotos = ({ name, path, label }: Props) => {
   const { values, setFieldValue } = useFormikContext<any>();
   const fullPath = `${path}.${name}`;
-
+  const { colors } = useAppTheme();
+  const { isDarkTheme } = useContext(CustomThemeContext);
   // Get the current photos directly from Formik state
   const selectedPhotos: Asset[] = getIn(values, fullPath) || [];
 
@@ -109,7 +112,15 @@ const AddPhotos = ({ name, path, label }: Props) => {
         mode="outlined"
         icon="camera"
         onPress={createTwoButtonAlert}
-        style={styles.addButton}
+        theme={{ roundness: 1 }}
+        textColor={colors.utiliron}
+        buttonColor="transparent"
+        style={[
+          {
+            borderWidth: 1,
+            borderColor: isDarkTheme ? colors.utiliron : colors.link,
+          },
+        ]}
       >
         Add Photos ({selectedPhotos.length}/{PHOTO_LIMIT})
       </Button>

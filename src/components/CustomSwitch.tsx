@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Switch } from 'react-native-paper';
 import { useFormikContext } from 'formik';
 import { get } from '../utils';
+import { useAppTheme } from '../hooks/useAppTheme';
 
 interface Props {
   label: string;
@@ -17,7 +18,7 @@ const CustomSwitch = ({ label, name, path }: Props) => {
   const { values, setFieldValue } = useFormikContext();
   const fullPath = `${path}.${name}`;
   const value = get(values, fullPath);
-
+  const { colors } = useAppTheme();
   const getSwitchText = (
     label: string,
     isOn: boolean,
@@ -35,7 +36,12 @@ const CustomSwitch = ({ label, name, path }: Props) => {
         justifyContent: 'space-between',
       }}
     >
-      <Text>{label}</Text>
+      <Text
+        style={{ color: colors.h1Text, fontSize: 16, fontWeight: 400 }}
+        numberOfLines={2}
+      >
+        {label}
+      </Text>
       <View
         style={{
           flexDirection: 'row',
@@ -43,11 +49,27 @@ const CustomSwitch = ({ label, name, path }: Props) => {
           alignItems: 'center',
         }}
       >
-        <Text style={{ fontSize: 14 }}>{getSwitchText(label, value)}</Text>
+        <Text
+          style={{ fontSize: 16, fontWeight: 400, color: colors.tertiaryText }}
+        >
+          {getSwitchText(label, value)}
+        </Text>
 
         <Switch
+          style={{
+            transform: [{ scaleX: 1 }, { scaleY: 1 }],
+          }}
+          color={colors.link}
+          trackColor={{
+            true: colors.link,
+            false: colors.inActive,
+          }}
+          thumbColor={'white'}
+          ios_backgroundColor={colors.inActive}
           value={value}
-          onValueChange={on => setFieldValue(fullPath, on)}
+          onValueChange={on => {
+            setFieldValue(fullPath, on);
+          }}
         />
       </View>
     </View>

@@ -1,7 +1,7 @@
 import { BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
 import Icon from '@react-native-vector-icons/material-design-icons';
 import { getIn, useFormikContext } from 'formik';
-import React, { useEffect, useMemo, useRef, useState } from 'react'; // <-- Import useEffect
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'; // <-- Import useEffect
 import {
   Alert,
   Dimensions,
@@ -13,6 +13,8 @@ import {
 import ReactNativeBlobUtil from 'react-native-blob-util';
 import { Button } from 'react-native-paper';
 import SignatureView from 'react-native-signature-canvas';
+import { useAppTheme } from '../hooks/useAppTheme';
+import { CustomThemeContext } from '../context/CustomThemeContext';
 
 interface Props {
   name: string;
@@ -28,6 +30,8 @@ const CaptureSignature = ({ name, path, label }: Props) => {
   const snapPoints = useMemo(() => ['50%'], []);
   const { values, setFieldValue } = useFormikContext<any>();
   const fullPath = `${path}.${name}`;
+  const { colors } = useAppTheme();
+  const { isDarkTheme } = useContext(CustomThemeContext);
 
   // Use a single state variable for the file path
   const [signatureFilePath, setSignatureFilePath] = useState<string | null>(
@@ -80,7 +84,7 @@ const CaptureSignature = ({ name, path, label }: Props) => {
               style={{ flexDirection: 'row', gap: 6 }}
               onPress={handleClear}
             >
-              <Icon name="trash-can-outline" color="blue" size={20} />
+              <Icon name="trash-can-outline" color={colors.link} size={20} />
             </TouchableOpacity>
           </View>
           <View>
@@ -97,7 +101,19 @@ const CaptureSignature = ({ name, path, label }: Props) => {
           </View>
         </View>
       )}
-      <Button mode="outlined" onPress={() => bottomSheetRef.current?.present()}>
+      <Button
+        mode="outlined"
+        onPress={() => bottomSheetRef.current?.present()}
+        theme={{ roundness: 1 }}
+        textColor={colors.utiliron}
+        buttonColor="transparent"
+        style={[
+          {
+            borderWidth: 1,
+            borderColor: isDarkTheme ? colors.utiliron : colors.link,
+          },
+        ]}
+      >
         Capture Signature
       </Button>
       <BottomSheetModal ref={bottomSheetRef} index={0} snapPoints={snapPoints}>
@@ -116,8 +132,12 @@ const CaptureSignature = ({ name, path, label }: Props) => {
                   signatureRef?.current?.clearSignature();
                 }}
               >
-                <Icon name="redo" color={'blue'} size={20} />
-                <Text>{'reset'}</Text>
+                <Icon name="redo" color={colors.link} size={20} />
+                <Text
+                  style={{ fontSize: 14, fontWeight: 400, color: colors.link }}
+                >
+                  {'Reset'}
+                </Text>
               </TouchableOpacity>
             </View>
             <View
@@ -127,7 +147,7 @@ const CaptureSignature = ({ name, path, label }: Props) => {
                 borderRadius: 8,
                 overflow: 'hidden',
                 marginBottom: 20,
-                borderColor: 'brown',
+                borderColor: colors.outline,
                 height: IMAGE_HEIGHT,
               }}
             >
@@ -149,14 +169,36 @@ const CaptureSignature = ({ name, path, label }: Props) => {
               }}
             >
               <Button
+                theme={{
+                  roundness: 1,
+                }}
+                mode="contained"
+                onPress={() => bottomSheetRef.current?.close()}
+                style={{
+                  borderColor: isDarkTheme ? colors.utiliron : colors.link,
+                }}
+                labelStyle={{ fontWeight: '700', fontSize: 16 }}
+                textColor={colors.utiliron}
+                buttonColor={'transparent'}
+              >
+                Cancel
+              </Button>
+              <Button
+                theme={{
+                  roundness: 1,
+                }}
+                mode="outlined"
                 onPress={() => {
                   signatureRef.current?.readSignature();
                 }}
+                labelStyle={{ fontWeight: '700', fontSize: 16 }}
+                textColor={isDarkTheme ? colors.primaryText : colors.pageBg}
+                buttonColor={colors.brandColor}
+                style={{
+                  borderColor: 'transparent',
+                }}
               >
                 Save
-              </Button>
-              <Button onPress={() => bottomSheetRef.current?.close()}>
-                Cancel
               </Button>
             </View>
           </View>

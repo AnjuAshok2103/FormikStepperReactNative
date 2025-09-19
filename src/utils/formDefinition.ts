@@ -289,7 +289,7 @@ export const formDefinition: StepDefinition[] = [
       {
         name: 'clockTestInMinutes',
         label: 'CFH In Minutes',
-        inputType: 'text-input',
+        inputType: 'number-input',
         type: 'number',
         max: 2,
         typeNumberSubtype: 'minutes',
@@ -304,7 +304,7 @@ export const formDefinition: StepDefinition[] = [
       {
         name: 'dropTestInMinutes',
         label: 'Drop Test In Minutes',
-        inputType: 'text-input',
+        inputType: 'number-input',
         type: 'number',
         typeNumberSubtype: 'minutes',
         max: 2,
@@ -488,7 +488,7 @@ export const formDefinition: StepDefinition[] = [
         title: 'Comments',
         fields: [
           {
-            name: 'commentsSelected',
+            name: 'selectedComment',
             label: 'Selected Comments',
             inputType: 'multi-select',
             type: 'text',
@@ -565,6 +565,17 @@ export const formDefinition: StepDefinition[] = [
           { name: 'ac', label: 'Air Conditoner', inventory: 0, stubs: 0 },
           { name: 'wm', label: 'Washing Machine', inventory: 0, stubs: 0 },
         ],
+      },
+    ],
+  },
+  {
+    title: 'Confirmation',
+    fields: [
+      {
+        name: 'review',
+        label: 'review',
+        type: 'review',
+        inputType: 'review',
       },
     ],
   },

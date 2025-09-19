@@ -1,7 +1,8 @@
 export type MainStackParamsList = {
   Main: undefined;
-  Home: { formDefinition: StepDefinition[]; orderType: string };
+  Home: { orderType: string };
   Other: undefined;
+  Profile: undefined;
 };
 
 export type Option = { label: string; value: string; disabled?: boolean };
@@ -14,20 +15,29 @@ export type InitialData = {
 };
 
 export type ValidationRule = 'required' | 'email' | 'number' | 'boolean';
+export type DataType =
+  | 'text'
+  | 'number'
+  | 'boolean'
+  | 'array-of-objects'
+  | 'review';
+export type InputTypes =
+  | 'text-input'
+  | 'decimal-input'
+  | 'number-input'
+  | 'dropdown'
+  | 'switch'
+  | 'multi-select'
+  | 'inventory-list' // New property
+  | 'image-selector'
+  | 'signature-editor'
+  | 'check-box'
+  | 'review';
 export interface FieldDefinition {
   name: string;
   label: string;
-  inputType:
-    | 'text-input'
-    | 'decimal-input'
-    | 'dropdown'
-    | 'switch'
-    | 'multi-select'
-    | 'inventory-list' // New property
-    | 'image-selector'
-    | 'signature-editor'
-    | 'check-box';
-  type: 'text' | 'number' | 'boolean' | 'array-of-objects';
+  inputType: InputTypes;
+  type: DataType;
   validation?: ValidationRule | string;
   min?: number;
   max?: number;
@@ -36,8 +46,9 @@ export interface FieldDefinition {
   initialData?: InitialData[];
   typeNumberSubtype?: 'default' | 'minutes';
   showLabel?: boolean;
+  disableIf?: (values: any) => boolean;
   visibleIf?: (values: any) => boolean;
-  requiredField?: string;
+  requiredField?: string | string[];
 }
 
 export interface StepDefinition {

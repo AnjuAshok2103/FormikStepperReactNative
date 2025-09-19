@@ -1,14 +1,19 @@
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { get } from '../utils';
 import { useFormikContext } from 'formik';
-import { FlatList } from 'react-native-gesture-handler';
+import { useAppTheme } from '../hooks/useAppTheme';
+import { useContext } from 'react';
+import { CustomThemeContext } from '../context/CustomThemeContext';
+import { Divider } from 'react-native-paper';
+import Icon from '@react-native-vector-icons/material-design-icons';
 
 interface Props {
   path: string; // Path in Formik values, e.g. "applianceInventory[0]"
 }
 export const DynamicInventory = ({ path }: Props) => {
   const { values, setFieldValue } = useFormikContext<any>();
-
+  const { colors } = useAppTheme();
+  const { isDarkTheme } = useContext(CustomThemeContext);
   // Always read from Formik
   const currentItem = get(values, path);
 
@@ -28,6 +33,169 @@ export const DynamicInventory = ({ path }: Props) => {
     return null;
   }
 
+  const Inventory = () => (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+      }}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderWidth: StyleSheet.hairlineWidth,
+          borderRadius: 4,
+          backgroundColor: isDarkTheme ? colors.inActive : colors.accentBg,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => handleDecrement('inventory')}
+        >
+          <Icon
+            name="minus"
+            color={
+              currentItem.inventory === 0
+                ? colors.outline
+                : isDarkTheme
+                ? colors.pageBg
+                : colors.primaryText
+            }
+            style={{
+              opacity: isDarkTheme && currentItem.inventory === 0 ? 0.6 : 1,
+            }}
+            size={20}
+          />
+        </TouchableOpacity>
+        <Divider
+          style={{
+            backgroundColor: colors.outline,
+            height: '100%',
+            width: StyleSheet.hairlineWidth,
+          }}
+        />
+        <Text style={{ fontSize: 20 }}>{currentItem.inventory}</Text>
+        <Divider
+          style={{
+            backgroundColor: colors.outline,
+            height: '100%',
+            width: StyleSheet.hairlineWidth,
+          }}
+        />
+        <TouchableOpacity
+          style={{
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          onPress={() => handleIncrement('inventory')}
+        >
+          <Icon
+            name="plus"
+            color={
+              currentItem.inventory === 10
+                ? colors.outline
+                : isDarkTheme
+                ? colors.pageBg
+                : colors.primaryText
+            }
+            style={{
+              opacity: isDarkTheme && currentItem.inventory === 10 ? 0.6 : 1,
+            }}
+            size={20}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
+  const Stubs = () => (
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        // backgroundColor: 'orange',
+      }}
+    >
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: 10,
+          alignItems: 'center',
+          justifyContent: 'center',
+          borderWidth: StyleSheet.hairlineWidth,
+          borderRadius: 4,
+          backgroundColor: isDarkTheme ? colors.inActive : colors.accentBg,
+        }}
+      >
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => handleDecrement('stubs')}
+        >
+          <Icon
+            name="minus"
+            color={
+              currentItem.stubs === 0
+                ? colors.outline
+                : isDarkTheme
+                ? colors.pageBg
+                : colors.primaryText
+            }
+            style={{
+              opacity: isDarkTheme && currentItem.stubs === 0 ? 0.6 : 1,
+            }}
+            size={20}
+          />
+        </TouchableOpacity>
+        <Divider
+          style={{
+            backgroundColor: colors.outline,
+            height: '100%',
+            width: StyleSheet.hairlineWidth,
+          }}
+        />
+        <Text style={{ fontSize: 20 }}>{currentItem.stubs}</Text>
+        <Divider
+          style={{
+            backgroundColor: colors.outline,
+            height: '100%',
+            width: StyleSheet.hairlineWidth,
+          }}
+        />
+        <TouchableOpacity
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => handleIncrement('stubs')}
+        >
+          <Icon
+            name="plus"
+            color={
+              currentItem.stubs === 10
+                ? colors.outline
+                : isDarkTheme
+                ? colors.pageBg
+                : colors.primaryText
+            }
+            style={{
+              opacity: isDarkTheme && currentItem.stubs === 10 ? 0.6 : 1,
+            }}
+            size={20}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+
   return (
     <View
       style={{
@@ -35,14 +203,21 @@ export const DynamicInventory = ({ path }: Props) => {
         justifyContent: 'space-between',
         alignItems: 'center',
         marginBottom: 16,
-        borderBottomWidth: 1,
+        borderBottomWidth: StyleSheet.hairlineWidth,
         paddingBottom: 8,
-        paddingHorizontal: 20,
       }}
     >
       {/* Appliance Name - Fixed Width */}
       <View style={{ flex: 2 }}>
-        <Text style={{ fontSize: 14 }} numberOfLines={2}>
+        <Text
+          style={{
+            fontSize: 12,
+            textAlign: 'left',
+            fontWeight: 600,
+            color: colors.h1Text,
+          }}
+          numberOfLines={2}
+        >
           {currentItem.label}
         </Text>
       </View>
@@ -51,70 +226,14 @@ export const DynamicInventory = ({ path }: Props) => {
       <View
         style={{
           flexDirection: 'row',
+          gap: 10,
           flex: 3,
         }}
       >
         {/* Inventory Counter - Takes half of remaining space */}
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            // backgroundColor: 'pink',
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              gap: 10,
-              alignItems: 'center',
-            }}
-          >
-            <TouchableOpacity
-              style={{ borderWidth: 1, padding: 5 }}
-              onPress={() => handleDecrement('inventory')}
-            >
-              <Text style={{ fontSize: 16 }}>-</Text>
-            </TouchableOpacity>
-            <Text style={{ fontSize: 20 }}>{currentItem.inventory}</Text>
-            <TouchableOpacity
-              style={{ borderWidth: 1, padding: 5 }}
-              onPress={() => handleIncrement('inventory')}
-            >
-              <Text style={{ fontSize: 16 }}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
+        {Inventory()}
         {/* Stubs Counter - Takes other half of remaining space */}
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-            // backgroundColor: 'orange',
-          }}
-        >
-          <View
-            style={{
-              flexDirection: 'row',
-              gap: 10,
-              alignItems: 'center',
-            }}
-          >
-            <TouchableOpacity
-              style={{ borderWidth: 1, padding: 5 }}
-              onPress={() => handleDecrement('stubs')}
-            >
-              <Text style={{ fontSize: 16 }}>-</Text>
-            </TouchableOpacity>
-            <Text style={{ fontSize: 20 }}>{currentItem.stubs}</Text>
-            <TouchableOpacity
-              style={{ borderWidth: 1, padding: 5 }}
-              onPress={() => handleIncrement('stubs')}
-            >
-              <Text style={{ fontSize: 16 }}>+</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
+        {Stubs()}
       </View>
     </View>
   );

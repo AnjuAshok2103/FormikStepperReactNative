@@ -1,8 +1,8 @@
 // DynamicField.tsx
 import { useFormikContext } from 'formik';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Text, View } from 'react-native';
-import { InitialData, Option } from '../types';
+import { DataType, InitialData, InputTypes, Option } from '../types';
 import { get } from '../utils';
 import AddPhotos from './AddPhotos';
 import { ArrayField } from './ArrayField';
@@ -11,23 +11,17 @@ import CustomCheckBox from './CustomCheckBox';
 import CustomSwitch from './CustomSwitch';
 import { Dropdown } from './DropDownComponent';
 import { DecimalInput } from './inputs/CustomDecimalInput';
+import { CustomNumberInput } from './inputs/CustomNumberInput';
 import CustomTextInput from './inputs/CustomTextInput';
 import { MultiSelect } from './MultiSelectComponent';
+import { useAppTheme } from '../hooks/useAppTheme';
+import Review from './Review';
 
 interface Props {
   name: string;
   label: string;
-  type: 'text' | 'number' | 'email' | 'boolean' | 'array-of-objects';
-  inputType:
-    | 'text-input'
-    | 'decimal-input'
-    | 'dropdown'
-    | 'switch'
-    | 'multi-select'
-    | 'inventory-list'
-    | 'signature-editor'
-    | 'image-selector'
-    | 'check-box';
+  type: DataType;
+  inputType: InputTypes;
   options?: Option[] | Record<string, Option[]>;
   initialData?: InitialData[];
   path: string; // Add a basePath prop here
@@ -48,25 +42,38 @@ export const DynamicField: React.FC<Props> = ({
   stepInfoText,
   visibleIf,
 }) => {
-  const { values, handleChange, handleBlur, setFieldValue, errors, touched } =
-    useFormikContext<any>();
+  const {
+    values,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    setFieldError,
+    setFieldTouched,
+    validateForm,
+    errors,
+    touched,
+  } = useFormikContext<any>();
   // Use the full path for Formik's functions and value access
   const fullPath = `${path}.${name}`;
   const value = get(values, fullPath);
   const fieldError = get(errors, fullPath); // Retrieve the error for the full path
   const isTouched = get(touched, fullPath); // Check if the field has been touched
-
+  const { colors } = useAppTheme();
   // Check visibility condition at the top
   const isVisible = visibleIf ? visibleIf(values) : true;
 
-  // Effect to reset field value when it becomes hidden
-  useEffect(() => {
-    if (!isVisible) {
-      // Reset the field's value to a sensible default when it's hidden
-      const resetValue = type === 'boolean' ? false : '';
-      setFieldValue(fullPath, resetValue);
-    }
-  }, [isVisible, fullPath, setFieldValue, type]);
+  // useEffect(() => {
+  //   if (!isVisible) {
+  //     let resetValue: any = '';
+  //     if (inputType === 'dropdown') {
+  //       resetValue = '';
+  //     } else if (inputType === 'check-box' || inputType === 'switch') {
+  //       resetValue = false;
+  //     }
+  //     setFieldValue(fullPath, resetValue);
+  //     validateForm();
+  //   }
+  // }, [isVisible, fullPath, inputType, setFieldValue, validateForm]);
 
   // If the field is not visible, return null to hide it
   if (!isVisible) {
@@ -80,7 +87,27 @@ export const DynamicField: React.FC<Props> = ({
           <CustomTextInput
             type={type}
             handleOnChange={(text: any) => setFieldValue(fullPath, text)}
-            handleBlur={handleBlur(fullPath)}
+            handleBlur={() => {
+              handleBlur(fullPath);
+              setFieldTouched(fullPath, true);
+            }}
+            value={value}
+            isTouched={isTouched}
+            fieldError={fieldError}
+            path={path}
+            fullPath={fullPath}
+          />
+        );
+
+      case 'number-input':
+        return (
+          <CustomNumberInput
+            type={type}
+            handleOnChange={(text: any) => setFieldValue(fullPath, text)}
+            handleBlur={() => {
+              handleBlur(fullPath);
+              setFieldTouched(fullPath, true);
+            }}
             value={value}
             isTouched={isTouched}
             fieldError={fieldError}
@@ -93,7 +120,10 @@ export const DynamicField: React.FC<Props> = ({
           <DecimalInput
             type={type}
             handleOnChange={(text: any) => setFieldValue(fullPath, text)}
-            handleBlur={handleBlur(fullPath)}
+            handleBlur={() => {
+              handleBlur(fullPath);
+              setFieldTouched(fullPath, true);
+            }}
             value={value}
             isTouched={isTouched}
             fieldError={fieldError}
@@ -117,8 +147,6 @@ export const DynamicField: React.FC<Props> = ({
           <Dropdown
             label={label}
             options={dropdownOptions}
-            selectedValue={value}
-            onSelect={selected => setFieldValue(fullPath, selected)}
             path={path}
             name={name}
           />
@@ -175,10 +203,12 @@ export const DynamicField: React.FC<Props> = ({
             name={name}
             label={label}
             path={path}
-            stepInfoText={stepInfoText}
             // onChange={selectedPhotos => setFieldValue(fullPath, selectedPhotos)}
           />
         );
+
+      case 'review':
+        return <Review />;
 
       default:
         return null;
@@ -188,7 +218,9 @@ export const DynamicField: React.FC<Props> = ({
   return (
     <View style={{ marginBottom: 16, gap: 10 }}>
       {inputType !== 'switch' && inputType !== 'dropdown' && showLabel && (
-        <Text style={{ fontWeight: '600' }}>{label}</Text>
+        <Text style={{ fontSize: 16, fontWeight: 400, color: colors.h1Text }}>
+          {label}
+        </Text>
       )}
       {renderField()}
       {fieldError && isTouched && (

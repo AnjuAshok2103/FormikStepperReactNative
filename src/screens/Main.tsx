@@ -1,32 +1,20 @@
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
-import React, { useCallback } from 'react';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { MainStackParamsList } from '../types';
+import React, { useCallback } from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { styles } from '../styles';
-import { dnp } from '../utils/dnp';
-import { dnpfm } from '../utils/dnpfm';
-import { formDefinition } from '../utils/formDefinition';
-import { formDefinitionSimple } from '../utils/formDefinitionSimple';
+import { MainStackParamsList } from '../types';
 
 export type MainScreenProps = NativeStackScreenProps<
   MainStackParamsList,
   'Main'
 >;
 const Main = ({ navigation, route }: MainScreenProps) => {
-  let orderList = ['DNP', 'DNPFM', 'DNPFM Nevada'];
+  let orderList = ['DNP', 'DNPFM', 'DNPFM Nevada', 'FM18E'];
 
   const handleSelectOrder = (orderType: string) => {
-    let selectedFormDefinition = formDefinitionSimple;
-    if (orderType === 'DNP') {
-      selectedFormDefinition = dnp;
-    } else if (orderType === 'DNPFM') {
-      selectedFormDefinition = dnpfm;
-    } else {
-      selectedFormDefinition = formDefinition;
-    }
     // Navigate and pass the form definition as a parameter
     navigation.navigate('Home', {
-      formDefinition: selectedFormDefinition,
+      // formDefinition: selectedFormDefinition,
       orderType: orderType,
     });
   };

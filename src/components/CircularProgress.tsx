@@ -4,6 +4,8 @@ import { Text } from 'react-native-paper';
 import { Circle, Text as SVGText, Svg } from 'react-native-svg';
 import Icon from '@react-native-vector-icons/material-design-icons';
 import { styles } from '../styles';
+import { CustomThemeContext } from '../context/CustomThemeContext';
+import { useAppTheme } from '../hooks/useAppTheme';
 
 interface CircularProgressProps {
   size: number;
@@ -28,13 +30,14 @@ const CircularProgress = (props: CircularProgressProps) => {
   const circum = radius * 2 * Math.PI;
   const percentage = (activeStep / steps) * 100;
   const svgProgress = circum - (circum * percentage) / 100;
-
+  const { isDarkTheme } = useContext(CustomThemeContext);
+  const { colors } = useAppTheme();
   return (
     <View style={styles.progressCircle}>
       <Svg width={size} height={size}>
         {/* Background Circle */}
         <Circle
-          stroke={'#ABACBE'}
+          stroke={colors.tertiaryText}
           fill="none"
           cx={size / 2}
           cy={size / 2}
@@ -44,7 +47,7 @@ const CircularProgress = (props: CircularProgressProps) => {
 
         {/* Progress Circle */}
         <Circle
-          stroke={'green'}
+          stroke={colors.success}
           fill="none"
           cx={size / 2}
           cy={size / 2}
@@ -63,7 +66,7 @@ const CircularProgress = (props: CircularProgressProps) => {
           x={size / 2}
           y={size / 2 + 5}
           textAnchor="middle"
-          fill={'black'}
+          fill={isDarkTheme ? colors.primaryText : 'white'}
         >
           {`${activeStep} of ${steps}`}
         </SVGText>
@@ -81,7 +84,7 @@ const CircularProgress = (props: CircularProgressProps) => {
           <Text
             style={{
               ...styles.mediumVariantTextSize,
-              color: '#ABACBE',
+              color: colors.inActive,
               ...styles.textTransformCapitalise,
             }}
             numberOfLines={2}
@@ -92,7 +95,7 @@ const CircularProgress = (props: CircularProgressProps) => {
             style={{
               ...styles.largeTextSize,
               ...styles.fontW400,
-              color: 'green',
+              color: isDarkTheme ? colors.h1Text : 'white',
               ...styles.textTransformCapitalise,
             }}
             numberOfLines={2}
@@ -108,7 +111,11 @@ const CircularProgress = (props: CircularProgressProps) => {
             openSheet && openSheet();
           }}
         >
-          <Icon name={'information-outline'} size={25} color={'#ABACBE'} />
+          <Icon
+            name={'information-outline'}
+            size={25}
+            color={colors.tertiaryText}
+          />
         </TouchableOpacity>
       </View>
     </View>

@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native';
 import React from 'react';
-import { useAppTheme } from '../../hooks/useAppTheme';
+import { StyleSheet, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
+import { useAppTheme } from '../../hooks/useAppTheme';
 import { DataType } from '../../types';
 
-interface Props {
+interface NumberInputProps {
   type: DataType;
   path: string; // Add a basePath prop here
   handleOnChange: any;
@@ -15,17 +15,18 @@ interface Props {
   isTouched: boolean;
 }
 
-const CustomTextInput = ({
+export const CustomNumberInput: React.FC<NumberInputProps> = ({
   type,
   handleBlur,
   value,
   fieldError,
   isTouched,
   handleOnChange,
-}: Props) => {
+}) => {
   const { colors } = useAppTheme();
+
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={{
           backgroundColor: colors.container,
@@ -48,15 +49,24 @@ const CustomTextInput = ({
         mode="outlined"
         textColor={colors.h1Text}
         placeholderTextColor={colors.inActive}
-        keyboardType={type === 'number' ? 'numeric' : 'default'}
-        autoCapitalize="none"
-        onChangeText={handleOnChange}
-        onBlur={handleBlur}
         value={value}
+        onChangeText={text => {
+          const value = text.replace(/^0+/, ''); // removes leading zeros
+          handleOnChange(value);
+        }}
+        onBlur={handleBlur}
+        keyboardType="number-pad"
         returnKeyType="done"
       />
     </View>
   );
 };
 
-export default CustomTextInput;
+const styles = StyleSheet.create({
+  container: {
+    marginVertical: 8,
+  },
+  errorContainer: {
+    marginTop: 4,
+  },
+});

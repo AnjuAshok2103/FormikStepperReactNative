@@ -1,6 +1,6 @@
 import { StepDefinition } from '../types';
 
-export const dnpfm: StepDefinition[] = [
+export const dnpfmNevada: StepDefinition[] = [
   {
     title: 'Meter Maintenance',
     fields: [],
@@ -179,7 +179,6 @@ export const dnpfm: StepDefinition[] = [
     subSteps: [
       {
         title: 'Appliance Inventory',
-        optional: true,
         stepInfoText:
           'Update the inventory to reflect the parts used or restocked during this service.Record the stubs for warranty claims or service actions completed.Ensure accurate entries to maintain seamless service order tracking.',
         fields: [
@@ -231,7 +230,6 @@ export const dnpfm: StepDefinition[] = [
           },
         ],
       },
-
       {
         title: 'Leak Classification',
         stepInfoText:
@@ -243,7 +241,6 @@ export const dnpfm: StepDefinition[] = [
             label: 'Leak On Above Ground Company Facilities',
             inputType: 'check-box',
             type: 'boolean',
-            validation: 'required',
             showLabel: false,
           },
           {
@@ -252,6 +249,7 @@ export const dnpfm: StepDefinition[] = [
             inputType: 'check-box',
             type: 'boolean',
             showLabel: false,
+            // Condition 1: Visible if leakOnAboveGround is true
             visibleIf: values =>
               values?.soDetails?.subSteps?.leakClassification
                 ?.leakOnAboveGround,
@@ -269,8 +267,8 @@ export const dnpfm: StepDefinition[] = [
                 ?.leakOnAboveGround,
           },
           {
-            name: 'leakCause',
-            label: 'Leak Cause',
+            name: 'nonHazardousLeakCause',
+            label: 'Non Hazardous Leak Cause',
             inputType: 'dropdown',
             type: 'text',
             validation: 'required',
@@ -318,8 +316,8 @@ export const dnpfm: StepDefinition[] = [
             name: 'leakPipeSize',
             label: 'Leak Pipe Size',
             inputType: 'dropdown',
-            validation: 'required',
             type: 'text',
+            validation: 'required',
             visibleIf: values =>
               values?.soDetails?.subSteps?.leakClassification
                 ?.leakOnAboveGround,

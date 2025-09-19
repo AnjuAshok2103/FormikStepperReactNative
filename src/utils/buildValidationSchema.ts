@@ -1,7 +1,5 @@
 import * as Yup from 'yup';
-import { formDefinition } from './formDefinition';
 import { FieldDefinition, StepDefinition } from '../types';
-import { FormikValues, useFormikContext } from 'formik';
 
 // Helper function to convert a string to camelCase
 export const toCamelCase = (str: string): string => {
@@ -18,60 +16,6 @@ export const toCamelCase = (str: string): string => {
     .join('');
 };
 
-/**
- * Builds a Yup schema for a single array of FieldDefinition objects.
- */
-// const buildSchemaFromFields = (fields: FieldDefinition[]) => {
-//   const shape: Record<string, any> = {};
-
-//   fields.forEach(field => {
-//     let validator: any;
-
-//     // Determine the base Yup type based on the field's 'type'
-//     switch (field.type) {
-//       case 'number':
-//         // Start with string, since TextInput always gives string
-//         validator = Yup.string().matches(
-//           /^\d*$/,
-//           `${field.label} must be a number`,
-//         );
-
-//         // Handle digit length limit (if maxDigits provided)
-//         if (field.max !== undefined) {
-//           const max = field.max;
-//           validator = Yup.string()
-//             .matches(
-//               new RegExp(`^\\d{${max}}$`),
-//               `${field.label} must be exactly ${max} digits`,
-//             )
-//             .required(`${field.label} is required`);
-//         }
-
-//         break;
-//       case 'boolean':
-//         validator = Yup.boolean();
-//         break;
-//       default: // 'text' (dropdowns)
-//         validator = Yup.string();
-//         break;
-//     }
-
-//     // Apply 'required' validation if specified
-//     if (field.validation === 'required') {
-//       validator = validator.required(`${field.label} is required`);
-//     }
-
-//     // Apply regex validation if provided
-//     if (field.regex) {
-//       validator = validator.matches(field.regex.pattern, field.regex.message);
-//     }
-
-//     shape[field.name] = validator;
-//   });
-
-//   return Yup.object().shape(shape);
-// };
-
 const buildSchemaFromFields = (
   fields: FieldDefinition[],
   isOptional: boolean,
@@ -85,8 +29,8 @@ const buildSchemaFromFields = (
       case 'multi-select':
         // multi-select = array of strings
         validator = Yup.array()
-          .of(Yup.string())
-          .min(1, `${field.label} requires at least one selection`);
+          .of(Yup.string().required())
+          .min(1, `Atleast 1 ${field.label} must be selected`);
 
         if (field.validation === 'required') {
           validator = validator.required(`${field.label} is required`);
@@ -96,18 +40,37 @@ const buildSchemaFromFields = (
       case 'inventory-list':
         // inventory-list = array of objects with custom shape
         // Each object has name, inventory, stubs (from InitialData)
-        validator = Yup.array().of(
-          Yup.object().shape({
-            name: Yup.string().required('Name is required'),
-            label: Yup.string().required('Label is required'),
-            inventory: Yup.number()
-              .min(0, 'Inventory must be >= 0')
-              .required('Inventory is required'),
-            stubs: Yup.number()
-              .min(0, 'Stubs must be >= 0')
-              .required('Stubs is required'),
-          }),
-        );
+        validator = Yup.array()
+          .of(
+            Yup.object().shape({
+              name: Yup.string().required('Name is required'),
+              label: Yup.string().required('Label is required'),
+              inventory: Yup.number()
+                .min(0, 'Inventory must be >= 0')
+                .required('Inventory is required'),
+              stubs: Yup.number()
+                .min(0, 'Stubs must be >= 0')
+                .required('Stubs is required'),
+            }),
+          )
+          .test(
+            'at-least-one-filled',
+            'At least one appliance must have an inventory or stubs value greater than zero',
+            value => {
+              // ✅ If step is optional → skip this validation
+              if (isOptional) {
+                return true;
+              }
+
+              // ✅ If step is required → enforce rule
+              if (!value) {
+                return false;
+              }
+              return value.some(
+                appliance => appliance.inventory > 0 || appliance.stubs > 0,
+              );
+            },
+          );
         break;
 
       case 'image-selector':
@@ -140,6 +103,24 @@ const buildSchemaFromFields = (
           .required('This field is required');
         break;
 
+      case 'dropdown':
+        validator = Yup.string();
+
+        if (!isOptional && field.validation === 'required') {
+          if (field.requiredField) {
+            // ✅ Only dropdown gets conditional required
+            validator = Yup.string().when(field.requiredField, {
+              is: (val: boolean) => val === false, // or false, depending on your business rule
+              then: schema => schema.required(`${field.label} is required`),
+              otherwise: schema => schema.notRequired(),
+            });
+          } else {
+            validator = validator.required(`${field.label} is required`);
+          }
+        }
+
+        break;
+
       default:
         // now handle by type
         switch (field.type) {
@@ -151,19 +132,28 @@ const buildSchemaFromFields = (
                 .max(60, `${field.label} cannot exceed 60`)
                 .required(`${field.label} is required`);
             } else {
-              validator = Yup.string().matches(
-                /^\d*$/,
-                `${field.label} must be a number`,
-              );
+              if (field.requiredField) {
+                validator = Yup.number().when(field.requiredField, {
+                  is: (val: boolean) => val === true, // or false, depending on your business rule
+                  then: schema => schema.notRequired(),
+                  otherwise: schema =>
+                    schema.required(`${field.label} is required`),
+                });
+              } else {
+                validator = Yup.string().matches(
+                  /^\d*$/,
+                  `${field.label} must be a number`,
+                );
 
-              if (field.max !== undefined) {
-                const max = field.max;
-                validator = Yup.string()
-                  .matches(
-                    new RegExp(`^\\d{${max}}$`),
-                    `${field.label} must be exactly ${max} digits`,
-                  )
-                  .required(`${field.label} is required`);
+                if (field.max !== undefined) {
+                  const max = field.max;
+                  validator = Yup.string()
+                    .matches(
+                      new RegExp(`^\\d{${max}}$`),
+                      `${field.label} must be exactly ${max} digits`,
+                    )
+                    .required(`${field.label} is required`);
+                }
               }
             }
             break;
@@ -187,22 +177,14 @@ const buildSchemaFromFields = (
               );
             }
 
-            if (!isOptional && field.requiredField) {
-              validator = Yup.string().when(field.requiredField, {
-                is: false,
-                then: schema => schema.required(`${field.label} is required`),
-                otherwise: schema => schema.notRequired(),
-              });
+            if (field.validation === 'required') {
+              validator = validator.required(`${field.label} is required`);
             }
 
             break;
           default:
             validator = Yup.string();
             break;
-        }
-
-        if (!isOptional && field.validation === 'required') {
-          validator = validator.required(`${field.label} is required`);
         }
 
         if (field.regex) {

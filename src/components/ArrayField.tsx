@@ -6,6 +6,7 @@ import { Text } from 'react-native-paper';
 import { get } from '../utils';
 import { InitialData } from '../types';
 import CustomText from './inputs/CustomText';
+import { useAppTheme } from '../hooks/useAppTheme';
 
 interface Props {
   name: string;
@@ -17,7 +18,7 @@ interface Props {
 
 export const ArrayField = ({ name, path, stepInfoText }: Props) => {
   const { values } = useFormikContext<any>();
-
+  const { colors } = useAppTheme();
   const listToRender = get(values, `${path}.${name}`);
 
   if (!listToRender || !Array.isArray(listToRender)) {
@@ -31,13 +32,12 @@ export const ArrayField = ({ name, path, stepInfoText }: Props) => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          paddingHorizontal: 20, // Add some padding to match the image
           marginBottom: 10,
         }}
       >
         {/* Empty view for alignment with the item name */}
         <View style={{ flex: 1 }} />
-        <View style={{ flex: 1, alignItems: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'flex-end' }}>
           <Text style={{ fontWeight: 'bold' }}>Inventory</Text>
         </View>
         <View style={{ flex: 1, alignItems: 'center' }}>

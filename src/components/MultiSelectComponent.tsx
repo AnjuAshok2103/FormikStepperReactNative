@@ -10,6 +10,7 @@ import {
 import { useFormikContext } from 'formik';
 import { get } from '../utils';
 import CustomText from './inputs/CustomText';
+import { useAppTheme } from '../hooks/useAppTheme';
 const { height, width } = Dimensions.get('window');
 type Option = { label: string; value: string; disabled?: boolean };
 
@@ -23,7 +24,7 @@ interface Props {
 export const MultiSelect = ({ name, options, label, path }: Props) => {
   const { values, setFieldValue, errors, touched } = useFormikContext();
   const fullPath = `${path}.${name}`; // Construct the full path here
-
+  const { colors } = useAppTheme();
   const selectedValues = get(values, fullPath) || [];
   const fieldError = get(errors, fullPath);
   const isTouched = get(touched, fullPath);
@@ -51,12 +52,17 @@ export const MultiSelect = ({ name, options, label, path }: Props) => {
                 borderRadius: 5,
                 borderWidth: 1,
                 backgroundColor: selectedValues.includes(option.value)
-                  ? 'lightblue'
-                  : 'white',
-                borderColor: isTouched && fieldError ? 'red' : 'gray',
+                  ? colors.accentBg
+                  : colors.container,
+                borderColor:
+                  isTouched && fieldError ? colors.error : colors.outline,
               }}
             >
-              <Text>{option.label}</Text>
+              <Text
+                style={{ fontSize: 16, fontWeight: 400, color: colors.h1Text }}
+              >
+                {option.label}
+              </Text>
             </TouchableOpacity>
           ))}
         </View>

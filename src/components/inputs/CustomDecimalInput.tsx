@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, TextInput, View } from 'react-native';
-import { Text } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { TextInput } from 'react-native-paper';
+import { useAppTheme } from '../../hooks/useAppTheme';
+import { DataType } from '../../types';
 
 interface DecimalInputProps {
-  type: 'text' | 'number' | 'email' | 'boolean' | 'array-of-objects';
+  type: DataType;
   path: string; // Add a basePath prop here
   handleOnChange: any;
   handleBlur: any;
@@ -21,6 +23,8 @@ export const DecimalInput: React.FC<DecimalInputProps> = ({
   isTouched,
   handleOnChange,
 }) => {
+  const { colors } = useAppTheme();
+
   const formatDecimal = (value: string): string => {
     if (!value) {
       return '00.00';
@@ -36,15 +40,30 @@ export const DecimalInput: React.FC<DecimalInputProps> = ({
     <View style={styles.container}>
       <TextInput
         style={{
-          borderWidth: 1,
-          borderColor: fieldError && isTouched ? 'red' : '#ccc',
-          padding: 8,
-          borderRadius: 8,
+          backgroundColor: colors.container,
+          width: '100%',
+          fontSize: 16,
+          fontWeight: '400',
+          paddingHorizontal: 0,
+          height: 40,
         }}
-        value={String(value)}
+        theme={{
+          colors: {
+            primary: colors.h1Text,
+          },
+        }}
+        outlineStyle={{
+          borderRadius: 4,
+          borderWidth: 1,
+          borderColor: fieldError && isTouched ? colors.error : colors.outline,
+        }}
+        mode="outlined"
+        textColor={colors.h1Text}
+        placeholderTextColor={colors.inActive}
+        value={value}
         onChangeText={text => {
           const formattedValue = formatDecimal(text.replace(/[^0-9]/g, '')); // Remove non-numeric characters
-          handleOnChange(formattedValue ? formattedValue : 0.0); // Update the form state
+          handleOnChange(formattedValue || '0.00');
         }}
         onBlur={handleBlur}
         keyboardType="decimal-pad"

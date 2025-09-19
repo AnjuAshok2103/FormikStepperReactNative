@@ -1,51 +1,10 @@
 import { Dimensions, StyleSheet } from 'react-native';
 const { width } = Dimensions.get('screen');
 export const styles = StyleSheet.create({
-  //progressStepper
-  progressSteps: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: 'transparent',
-  },
-  progressStepButton: {
-    flex: 1,
-    borderRadius: 5,
-    borderWidth: 1,
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-  },
-  progressButtonText: {
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  progressStepButtonsParent: {
-    // marginVertical: 20,
-    marginHorizontal: 20,
-  },
-  progressButtonParent: {
-    width: '100%',
-    flexDirection: 'row',
-    gap: 20,
-    paddingHorizontal: 20,
-  },
   progressCircle: {
     flexDirection: 'row',
     alignItems: 'center',
     margin: 20,
-  },
-  displayFlex: {
-    display: 'flex',
-  },
-  flexBasis: {
-    flexBasis: 'auto',
-  },
-  flexWrap: {
-    flexWrap: 'wrap',
-  },
-  lineHeight22: {
-    lineHeight: 22,
   },
   fontSize10: {
     fontSize: 10,
@@ -56,59 +15,9 @@ export const styles = StyleSheet.create({
   fontSize14: {
     fontSize: 14,
   },
-  underlineBoldTextStyle: {
-    fontSize: 14,
-    fontWeight: '600',
-    textDecorationLine: 'underline',
-  },
   stepOverlapStyle: {
     borderTopLeftRadius: 16, // Rounded top-left corner
     borderTopRightRadius: 16, // Rounded top-right corner
-  },
-
-  // border
-  borderRadius4: {
-    borderRadius: 4,
-  },
-  borderRadius10: {
-    borderRadius: 10,
-  },
-  borderRadius8: {
-    borderRadius: 8,
-  },
-  borderRadius12: {
-    borderRadius: 12,
-  },
-  borderRadius16: {
-    borderRadius: 16,
-  },
-  borderRadiusTop: {
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-  },
-  //login
-  forgotTextStyle: {
-    textDecorationLine: 'none',
-    fontSize: 16,
-    fontWeight: '400',
-  },
-  // lessProminentText: {
-  //   fontSize: 12,
-  //   fontWeight: '400',
-  // },
-  faceIDText: {
-    fontSize: 14,
-    fontWeight: '700',
-  },
-  //socialblock
-  termsPrivacyTextStyle: {
-    textDecorationLine: 'none',
-    fontStyle: 'normal',
-  },
-  termsPrivacyRegularTextStyle: {
-    fontWeight: '300',
-    fontSize: 10,
-    fontStyle: 'normal',
   },
   //flex
   flex0: {
@@ -123,126 +32,8 @@ export const styles = StyleSheet.create({
   flex3: {
     flex: 3,
   },
-  flex1WidthFull: {
-    flex: 1,
-    width: '100%',
-  },
-  flexWrapStyle: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignContent: 'flex-end',
-  },
-  flexGrow1: {
-    flexGrow: 1,
-  },
-  // faqs
-  mainHeading: {
-    paddingHorizontal: 20,
-  },
-  headingStyle: {
-    // margin: 4,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  securityDepositAmountstyle: {
-    fontSize: 27,
-    fontWeight: '700',
-  },
-  answerStyle: {
-    marginVertical: 8,
-    fontSize: 16,
-    fontWeight: '400',
-  },
-  welcomeText: {
-    fontSize: 26,
-    fontWeight: '700',
-  },
-  //fontWeight
-  fontBold: {
-    fontWeight: 'bold',
-  },
-  fontBold300: {
-    fontWeight: '300',
-  },
-  tabBarIndicatorHeight: {
-    height: 1,
-  },
-  headerTitleFontStyle: {
-    fontSize: 20,
-    fontWeight: 400,
-  },
-  //margin
-  top6: {
-    top: '6%',
-  },
-  topZero: {
-    top: 0,
-  },
-  marginBottom10: {
-    marginBottom: 10,
-  },
-  marginBottom20: {
-    marginBottom: 20,
-  },
-  marginBottom5: {
-    marginBottom: 5,
-  },
-  marginTop5: {
-    marginTop: 5,
-  },
-  marginTop35: {
-    marginTop: -35,
-  },
   marginLeft20: {
     marginLeft: 20,
-  },
-  marginSE5: {
-    marginEnd: 5,
-    marginStart: 5,
-  },
-  margin5All: {
-    margin: 5,
-  },
-  margin3All: {
-    margin: 3,
-  },
-  marginTop15: {
-    marginTop: 15,
-  },
-  marginTop20: {
-    marginTop: 20,
-  },
-  marginTop24: {
-    marginTop: 24,
-  },
-  marginTop40: {
-    marginTop: 40,
-  },
-  marginTop50: {
-    marginTop: 50,
-  },
-  marginSE2: {
-    marginStart: 2,
-    marginEnd: 2,
-  },
-  marginTopBot5: {
-    marginTop: 5,
-    marginBottom: 5,
-  },
-  marginTopNegative5: {
-    marginTop: -5,
-  },
-  marginTopBot1: {
-    marginTop: 1,
-    marginBottom: 1,
-  },
-  marginTopBot2: {
-    marginTop: 2,
-    marginBottom: 2,
-  },
-  marginTop1: {
-    marginTop: 1,
   },
   marginBot1: {
     marginBottom: 1,
